@@ -9,22 +9,82 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onView:musicfree-sidebar"
+  ],
   "main": "./extension.js",
   "contributes": {
-    "commands": [{
-      "command": "musicfree-for-vscode.helloWorld",
-      "title": "Hello World"
-    }]
-  },
-  "views":{
-    "explorer": [
+    "commands": [
       {
-        "id": "musicfree-for-vscode",
-        "name": "MusicFree for VScode",
-        "icon": "./images/icon/icon.svg"
+        "command": "musicfree.openfile",
+        "title": "打开文件夹",
+        "category": "Music-Free"
+      },
+      {
+        "command": "musicfree.refresh",
+        "title": "刷新文件夹",
+        "category": "Music-Free"
+      },
+      {
+        "command": "musicfree.addsource",
+        "title": "添加音源",
+        "category": "Music-Free"
+      },
+      {
+        "command": "musicfree.update",
+        "title": "刷新音源",
+        "category": "Music-Free"
+      },
+      {
+        "command": "musicfree.search",
+        "title": "搜索音乐",
+        "category": "Music-Free"
       }
-    ]
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "musicfree-sidebar",
+          "title": "MusicFree for VScode",
+          "icon": "./images/icon/music.svg",
+          "when": "workspaceHasNoFolders"
+        }
+      ]
+    },
+    "views": {
+      "musicfree-sidebar": [
+        {
+          "id": "local",
+          "name": "本地音乐"
+        },
+        {
+          "id": "playlist",
+          "name": "播放列表"
+        },
+        {
+          "id": "stars",
+          "name": "收藏夹"
+        },
+        {
+          "id": "source",
+          "name": "音源"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "musicfree.openfile",
+          "when": "view == local",
+          "group": "navigation"
+        },
+        {
+          "command": "musicfree.refresh",
+          "when": "view == local",
+          "group": "navigation"
+        }
+      ]
+    }
   },
   "scripts": {
     "lint": "eslint .",
@@ -32,12 +92,15 @@
     "test": "vscode-test"
   },
   "devDependencies": {
-    "@types/vscode": "^1.90.0",
     "@types/mocha": "^10.0.6",
     "@types/node": "20.x",
-    "eslint": "^8.57.0",
-    "typescript": "^5.4.5",
+    "@types/vscode": "^1.90.0",
     "@vscode/test-cli": "^0.0.9",
-    "@vscode/test-electron": "^2.4.0"
+    "@vscode/test-electron": "^2.4.0",
+    "eslint": "^8.57.0",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "axios": "^1.7.2"
   }
 }
